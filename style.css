@@ -1,0 +1,494 @@
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+* {
+	padding: 0;
+	margin: 0;
+
+	font-family: "San Francisco", arial;
+}
+
+body {
+	transition: all 0.1s linear 0s;
+	background: white;
+}
+
+body.night {
+	transition: all 0.1s linear 0s;
+	background: black;
+}
+
+.palette {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+
+	margin: 0 auto;
+	margin-top: 6vh;
+	width: 112vh;
+}
+
+.color-picker {
+	order: 1;
+	margin-right: 1vh;
+	margin-bottom: 1vh;
+	width: 75vh;
+	height: 75vh;
+}
+
+.tone-picker {
+	order: 2;
+	margin-right: 1vh;
+	width: 5vh;
+	height: 75vh;
+}
+
+.alpha-picker {
+	order: 4;
+	margin-bottom: 5px;
+	width: 75vh;
+	height: 5vh;
+}
+
+.transparent-fill {
+	transition: all 0.1s linear 0s;
+	fill: #DBDBDB;
+}
+
+.night .transparent-fill {
+	transition: all 0.1s linear 0s;
+	fill: #404040;
+}
+
+.color-picker-background, .tone-picker-background, .alpha-picker-background {
+	overflow: visible;
+
+	width: 100%;
+	height: 100%;
+
+	touch-action: none;
+}
+
+.tone-picker-cursor-horizontal {
+	display: none;
+}
+
+.tone-gradient-horizontal {
+	display: none;
+}
+
+.info {
+	order: 3;
+	width: 30vh;
+	height: 75vh;
+	font-family: monospace;
+}
+
+.inputs {
+	text-align: center;
+}
+
+.inputs > .caption {
+	margin-top: 2vh;
+
+	font-size: 2vh;
+	color: #616161;
+}
+
+.inputs input {
+	transition: all 0.1s linear 0s;
+	box-sizing: border-box;
+	width: 30vh;
+	height: 5vh;
+	padding: 0.7vh 0;
+	padding-top: 0.9vh;
+
+	text-align: center;
+	font-size: 3vh;
+
+	background-color: #f5f5f5;
+	color: #616161;
+
+	outline: none;
+	border: none;
+	border-radius: 3px;
+}
+
+.night .inputs input {
+	transition: all 0.1s linear 0s;
+	background-color: #242424;
+}
+
+.inputs input:focus {
+	background-color: white !important;
+	border: 2px solid #00b3ff;
+}
+
+.night .inputs input:focus {
+	background-color: black !important;
+	border: 2px solid #242424;
+}
+
+.inputs input:hover {
+	background-color: #f9f9f9;
+}
+
+.night .inputs input:hover {
+	background-color: #1c1c1c;
+}
+
+#rgbPercentageInput {
+	margin-top: 0.8vh;
+}
+
+.hex-box {
+	display: flex;
+	flex-direction: row;
+	width: 30vh;
+}
+
+.hex-input-lattice {
+	width: 5vh;
+	font-size: 3vh;
+	color: #616161;
+	line-height: 5vh;
+}
+
+.hex-input-box {
+	width: 25vh;
+}
+
+#hexInput {
+	width: 100%;
+}
+
+.color-preview {
+	overflow: hidden;
+	width: 30vh;
+	height: 20vh;
+
+	border-radius: 3px;
+
+	background-color: rgba(255, 255, 255, 1);
+}
+.night .color-preview {
+	background-color: rgba(0, 0, 0, 1);
+}
+
+.line-break {
+	width: 100%;
+}
+
+.example-text {
+	order: 5;
+	
+	margin-top: 1vh;
+	font-size: 4vh;
+}
+
+.non-select {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+
+	cursor: default;
+}
+
+.scale-out-anim {
+	-webkit-transition-property: none !important;
+	-moz-transition-property: none !important;
+	-o-transition-property: none !important;
+	transition-property: none !important;
+	opacity: 0 !important;
+}
+
+.cursor {
+	opacity: 0;
+	touch-action: none;
+}
+
+a {
+	color: #00b3ff;
+	font-size: 2vh;
+
+	text-decoration: none;
+}
+
+a:hover {
+	color: #36c3ff;
+}
+
+a:active {
+	color: #0094d4;
+}
+
+.mobile-background {
+	display: none;
+}
+
+.mobile-color-model-select {
+	display: none;
+}
+
+
+/* Only mobile elements */
+@media (orientation: portrait) {
+	.mobile-background {
+		display: initial;
+		position: fixed;
+		z-index: 1;
+
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.palette {
+		box-sizing: border-box;
+		position: absolute;
+		z-index: 2;
+
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+
+		width: 100vw;
+		padding-left: 5vw;
+
+		margin: 0;
+
+		justify-content: flex-end;
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+
+	.tone-gradient-horizontal {
+		display: initial;
+	}
+
+	.tone-gradient-vertical {
+		display: none;
+	}
+
+	.info {
+		order: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		width: 90vw;
+	}
+
+	.color-preview {
+		display: none;
+	}
+
+	.inputs {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-end;
+	}
+
+	.inputs .caption {
+		display: none;
+	}
+
+	.inputs input {
+		display: none;
+
+		width: 45vw !important;
+		height: 7vw !important;
+
+		border-radius: 100vw;
+
+		background: white;
+	}
+
+	.hex-box, .hex-input-box {
+		width: auto;
+	}
+
+	.inputs input.selected {
+		display: initial;
+	}
+
+	.mobile-color-model-select {
+		display: initial;
+
+		width: 28vw;
+		height: 7vw;
+
+		outline: none;
+
+		font-size: 4vw;
+		font-weight: bold;
+		color: white;
+		text-align-last: center;
+		border-radius: 33vw;
+
+		background: black;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+	.mobile-color-model-select.percentage {
+		width: 40vw;
+	}
+
+	.hex-input-lattice {
+		display: none;
+	}
+
+	.color-picker {
+		order: 3;
+
+		width: 90vw;
+		height: 90vw;
+
+		margin: 0;
+	}
+
+	.tone-picker {
+		order: 2;
+		width: 90vw;
+		height: 10vw;
+
+		margin: 3vw 0;
+	}
+
+	.alpha-picker {
+		order: 4;
+		width: 90vw;
+		height: 10vw;
+		margin: 3vw 0;
+	}
+
+	.tone-picker-cursor-vertical {
+		display: none;
+	}
+
+	.tone-picker-cursor-horizontal {
+		display: initial;
+	}
+
+	.example-text {
+		display: none;
+	}
+}
+
+.night-switcher {
+	position: relative;
+
+	margin: 0 auto;
+	margin-top: 1vw;
+
+	width: 5vw;
+	/*background: #f5f5f5;*/
+
+	cursor: pointer;
+}
+
+.night-switcher:hover > .box {
+	border-color: #919191;
+}
+.night-switcher:hover .svg-sun {
+	fill: #919191;
+}
+
+/*.night .night-switcher:hover > .box {
+	border-color: #3d3d3d;
+}
+.night .night-switcher:hover .moon {
+	background: #3d3d3d;
+}*/
+
+.night-switcher > .box {
+	transition: all 0.1s linear 0s;
+	position: relative;
+	overflow: hidden;
+
+	margin: 0 auto;
+	margin-top: 1vw;
+
+	border-style: solid;
+	/*border-color: #06f;*/
+	border-color: #616161;
+	border-width: 0.12vw;
+
+	width: 3.4vw;
+	height: 1.67vw;
+	border-radius: 5vw;
+	background: #fff;
+}
+
+.svg-sun {
+	transition: all 0.1s linear 0s;
+	position: absolute;
+	top: 0.07vw;
+	right: 0.1vw;
+	width: 50%;
+	height: 100%;
+	/*display: none;*/
+	fill: #616161;
+	/*fill: black;*/
+	/*transform: translate(4vw, 0.3vw) scale(0.16);*/
+}
+
+.moon {
+	transition: all 0.1s linear 0s;
+	position: absolute;
+	top: 0.4vw;
+	right: 0.55vw;
+	width: 0.9vw;
+	height: 0.9vw;
+	border-radius: 1vw;
+	background: #fff;
+	/*opacity: 0;*/
+}
+
+.dark-side-of-moon {
+	transition: all 0.1s linear 0s;
+	position: absolute;
+	top: 0.3vw;
+	left: -1vw;
+	width: 0.9vw;
+	height: 0.9vw;
+	border-radius: 1vw;
+	background: #fff;
+	transform: scale(1.2);
+}
+
+.night-switcher.night .svg-sun {
+	transition: all 0.1s linear 0s;
+	right: 50%;
+	opacity: 0;
+	fill: #fff;
+	transform: rotate(-90deg) scale(0.6);
+}
+
+.night-switcher.night .moon {
+	transition: all 0.1s linear 0s;
+	opacity: 1;
+	right: 60%;
+	transform: scale(1.2);
+	background: #616161;
+}
+
+.night-switcher.night .box {
+	transition: all 0.1s linear 0s;
+	background: #000;
+	border-color: #616161;
+}
+
+.night-switcher.night > .box > .dark-side-of-moon {
+	transition: all 0.1s linear 0s;
+	left: 0.8vw;
+	background: #000;
+}
