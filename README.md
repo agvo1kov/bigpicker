@@ -5,4 +5,4 @@ You can share color via link that generating automatically.
 Also you can convert color models between each other.
 
 ## Contact with me
-You can contact with me in [Telegram](https://telegram.org/agvolkov5) (preferred) or [Facebook](https://www.facebook.com/agvolkov5)
+You can contact with me in [Telegram](https://t.me/agvolkov5) (preferred) or [Facebook](https://www.facebook.com/agvolkov5)
