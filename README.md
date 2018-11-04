@@ -1,6 +1,6 @@
 # [bigpicker.org](https://bigpicker.org/)
 ## What is it?
-It is a simple big web palette for choosing color in HEX, HSV, RGB (including percentage) and CMYK with the alpha channel and of course with the night mode.
+It is a simple big web palette for choosing colors in HEX, HSV, RGB (including percentage) and CMYK with the alpha channel and of course with the night mode.
 You can share a color via link that is generating automatically.
 Also you can converting colors between all of these color models.
 
