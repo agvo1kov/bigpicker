@@ -1163,7 +1163,24 @@ function nightModeSwitch() {
 	}
 }
 
-if (localStorage.getItem('night-mode') === 'on') {
+const getDefaultTheme = () => {
+	const userTheme = localStorage.getItem('journalbook_theme');
+
+	if (userTheme !== null) {
+		return userTheme;
+	}
+
+	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		return 'dark';
+	}
+
+	return '';
+};
+
+console.log(getDefaultTheme());
+
+if ((localStorage.getItem('night-mode') === 'on')
+	|| getDefaultTheme() === 'dark') {
 	document.body.style.transitionDuration = "0s";
 	nightModeSwitcher.classList.add('night');
 	document.body.classList.add('night');
