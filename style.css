@@ -494,10 +494,6 @@ a:active {
 	margin-top: 4px;
 }
 
-@media (prefers-dark-interface) {
-	color: white;
-	background: black
-}
 /*.night-switcher.night > .box > .dark-side-of-moon {*/
 	/*transition: all 1s linear 0s;*/
 	/*left: 1px;*/
