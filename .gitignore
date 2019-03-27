@@ -9,5 +9,4 @@
 .idea/bigpicker.iml
 yuicompressor-2.4.8.jar
 optimized/
-optimized/template.html
-optimized/template.html
+optimized/*
