@@ -2,7 +2,7 @@
 
 // Logical model describing
 
-var palette = {
+const palette = {
 	currentColor: {
 		percent: {
 			colorCursor: {
@@ -41,7 +41,7 @@ var palette = {
 		alpha: 1
 	},
 
-	setColorFromPercent: function(percent) {
+	setColorFromPercent: function (percent) {
 		percent = this.validatePercent(percent);
 		if (percent) {
 
@@ -50,7 +50,7 @@ var palette = {
 			}
 			if (percent.hasOwnProperty('toneCursor')) {
 				this.currentColor.percent.toneCursor = percent.toneCursor;
-			}			
+			}
 
 			this.currentColor.hsv = this.convertPercentToHsv(percent);
 			this.currentColor.rgb = this.convertHsvToRgb(this.currentColor.hsv);
@@ -60,7 +60,7 @@ var palette = {
 		}
 	},
 
-	setColorFromHsv: function(hsv) {
+	setColorFromHsv: function (hsv) {
 		hsv = this.validateHsv(hsv);
 		if (hsv) {
 			this.currentColor.hsv = hsv;
@@ -72,7 +72,7 @@ var palette = {
 		}
 	},
 
-	setColorFromRgb: function(rgb) {
+	setColorFromRgb: function (rgb) {
 		rgb = this.validateRgb(rgb);
 		if (rgb) {
 			this.currentColor.hsv = this.convertRgbToHsv(rgb);
@@ -84,7 +84,7 @@ var palette = {
 		}
 	},
 
-	setColorFromRgbPercentage: function(rgbPercentage) {
+	setColorFromRgbPercentage: function (rgbPercentage) {
 		rgbPercentage = this.validateRgbPercentage(rgbPercentage);
 		if (rgbPercentage) {
 			this.currentColor.rgbPercentage = rgbPercentage;
@@ -96,7 +96,7 @@ var palette = {
 		}
 	},
 
-	setColorFromHex: function(hex) {
+	setColorFromHex: function (hex) {
 		if (this.validateHex(hex)) {
 			this.currentColor.hex = hex;
 			this.currentColor.rgb = this.convertHexToRgb(hex);
@@ -107,7 +107,7 @@ var palette = {
 		}
 	},
 
-	setColorFromCmyk: function(cmyk) {
+	setColorFromCmyk: function (cmyk) {
 		cmyk = this.validateCmyk(cmyk);
 		if (cmyk) {
 			this.currentColor.cmyk = cmyk;
@@ -119,7 +119,7 @@ var palette = {
 		}
 	},
 
-	setAlpha: function(alpha) {
+	setAlpha: function (alpha) {
 		alpha = this.validateAlpha(alpha);
 		if (alpha !== false) {
 			this.currentColor.alpha = alpha / 100;
@@ -128,137 +128,226 @@ var palette = {
 	},
 
 	// Validation functions below
-	validatePercent: function(percent) {
+	validatePercent: function (percent) {
 		if (percent.hasOwnProperty('colorCursor')) {
 			if (percent.colorCursor.hasOwnProperty('x') && percent.colorCursor.hasOwnProperty('y')) {
 				if ((!this.isInt(percent.colorCursor.x) && !this.isFloat(percent.colorCursor.x)) ||
-					(!this.isInt(percent.colorCursor.y) && !this.isFloat(percent.colorCursor.y))) { return false; }
+					(!this.isInt(percent.colorCursor.y) && !this.isFloat(percent.colorCursor.y))) {
+					return false;
+				}
 
-				if (percent.colorCursor.x < 0) { percent.colorCursor.x = 0; }
-				if (percent.colorCursor.y < 0) { percent.colorCursor.y = 0; }
-				
+				if (percent.colorCursor.x < 0) {
+					percent.colorCursor.x = 0;
+				}
+				if (percent.colorCursor.y < 0) {
+					percent.colorCursor.y = 0;
+				}
 
-				if (percent.colorCursor.x > 100) { percent.colorCursor.x = 100; }
-				if (percent.colorCursor.y > 100) { percent.colorCursor.y = 100; }
+
+				if (percent.colorCursor.x > 100) {
+					percent.colorCursor.x = 100;
+				}
+				if (percent.colorCursor.y > 100) {
+					percent.colorCursor.y = 100;
+				}
 			}
 		} else {
-			if (!percent.hasOwnProperty('toneCursor')) { return false; }
+			if (!percent.hasOwnProperty('toneCursor')) {
+				return false;
+			}
 		}
 
 		if (percent.hasOwnProperty('toneCursor')) {
 			if (percent.toneCursor.hasOwnProperty('x')) {
-				if (!this.isInt(percent.toneCursor.x) && !this.isFloat(percent.toneCursor.x)) { return false; }
+				if (!this.isInt(percent.toneCursor.x) && !this.isFloat(percent.toneCursor.x)) {
+					return false;
+				}
 
 				percent.toneCursor.x = parseInt(percent.toneCursor.x);
-				if (percent.toneCursor.x == NaN) { return false; }
+				if (isNaN(percent.toneCursor.x)) {
+					return false;
+				}
 
-				if (percent.toneCursor.x < 0) { percent.toneCursor.x = 0; }
-				if (percent.toneCursor.x > 100) { percent.toneCursor.x = 100; }
+				if (percent.toneCursor.x < 0) {
+					percent.toneCursor.x = 0;
+				}
+				if (percent.toneCursor.x > 100) {
+					percent.toneCursor.x = 100;
+				}
 			}
 		}
 
 		return percent;
 	},
 
-	validateHsv: function(hsv) {
+	validateHsv: function (hsv) {
 		if (hsv.hasOwnProperty('h') && hsv.hasOwnProperty('s') && hsv.hasOwnProperty('v')) {
 			hsv.h = parseInt(hsv.h);
 			hsv.s = parseInt(hsv.s);
 			hsv.v = parseInt(hsv.v);
-			if ((hsv.h == NaN) || (hsv.s == NaN) || (hsv.v == NaN)) { return false; }
+			if ((isNaN(hsv.h)) || (isNaN(hsv.s)) || (isNaN(hsv.v))) {
+				return false;
+			}
 
-			if (hsv.h < 0) { hsv.h = 0; }
-			if (hsv.s < 0) { hsv.s = 0; }
-			if (hsv.v <= 0) { hsv.v = 0; hsv.s = 0; }
+			if (hsv.h < 0) {
+				hsv.h = 0;
+			}
+			if (hsv.s < 0) {
+				hsv.s = 0;
+			}
+			if (hsv.v <= 0) {
+				hsv.v = 0;
+				hsv.s = 0;
+			}
 
-			if (hsv.h >= 360) { hsv.h = 0; }
-			if (hsv.s > 100) { hsv.g = 100; }
-			if (hsv.v > 100) { hsv.v = 100; }
-			
+			if (hsv.h >= 360) {
+				hsv.h = 0;
+			}
+			if (hsv.s > 100) {
+				hsv.g = 100;
+			}
+			if (hsv.v > 100) {
+				hsv.v = 100;
+			}
+
 			return hsv;
 		}
 		return false;
 	},
 
-	validateRgb: function(rgb) {
+	validateRgb: function (rgb) {
 		if (rgb.hasOwnProperty('r') && rgb.hasOwnProperty('g') && rgb.hasOwnProperty('b')) {
 			rgb.r = parseInt(rgb.r);
 			rgb.g = parseInt(rgb.g);
 			rgb.b = parseInt(rgb.b);
-			if ((rgb.r == NaN) || (rgb.g == NaN) || (rgb.b == NaN)) { return false; }
+			if ((isNaN(rgb.r)) || (isNaN(rgb.g)) || (isNaN(rgb.b))) {
+				return false;
+			}
 
-			if (rgb.r < 0) { rgb.r = 0; }
-			if (rgb.g < 0) { rgb.g = 0; }
-			if (rgb.b < 0) { rgb.b = 0; }
+			if (rgb.r < 0) {
+				rgb.r = 0;
+			}
+			if (rgb.g < 0) {
+				rgb.g = 0;
+			}
+			if (rgb.b < 0) {
+				rgb.b = 0;
+			}
 
-			if (rgb.r > 255) { rgb.r = 255; }
-			if (rgb.g > 255) { rgb.g = 255; }
-			if (rgb.b > 255) { rgb.b = 255; }
+			if (rgb.r > 255) {
+				rgb.r = 255;
+			}
+			if (rgb.g > 255) {
+				rgb.g = 255;
+			}
+			if (rgb.b > 255) {
+				rgb.b = 255;
+			}
 
 			return rgb;
 		}
 		return false;
 	},
 
-	validateRgbPercentage: function(rgbPercentage) {
-		if (rgbPercentage.hasOwnProperty('r') && rgbPercentage.hasOwnProperty('g') 
-				&& rgbPercentage.hasOwnProperty('b')) {
+	validateRgbPercentage: function (rgbPercentage) {
+		if (rgbPercentage.hasOwnProperty('r') && rgbPercentage.hasOwnProperty('g')
+			&& rgbPercentage.hasOwnProperty('b')) {
 			rgbPercentage.r = parseInt(rgbPercentage.r);
 			rgbPercentage.g = parseInt(rgbPercentage.g);
 			rgbPercentage.b = parseInt(rgbPercentage.b);
-			if ((rgbPercentage.r == NaN) || (rgbPercentage.g == NaN) || (rgbPercentage.b == NaN)) { return false; }
+			if ((isNaN(rgbPercentage.r)) || (isNaN(rgbPercentage.g)) || (isNaN(rgbPercentage.b))) {
+				return false;
+			}
 
-			if (rgbPercentage.r < 0) { rgbPercentage.r = 0; }
-			if (rgbPercentage.g < 0) { rgbPercentage.g = 0; }
-			if (rgbPercentage.b < 0) { rgbPercentage.b = 0; }
+			if (rgbPercentage.r < 0) {
+				rgbPercentage.r = 0;
+			}
+			if (rgbPercentage.g < 0) {
+				rgbPercentage.g = 0;
+			}
+			if (rgbPercentage.b < 0) {
+				rgbPercentage.b = 0;
+			}
 
-			if (rgbPercentage.r > 100) { rgbPercentage.r = 100; }
-			if (rgbPercentage.g > 100) { rgbPercentage.g = 100; }
-			if (rgbPercentage.b > 100) { rgbPercentage.b = 100; }
+			if (rgbPercentage.r > 100) {
+				rgbPercentage.r = 100;
+			}
+			if (rgbPercentage.g > 100) {
+				rgbPercentage.g = 100;
+			}
+			if (rgbPercentage.b > 100) {
+				rgbPercentage.b = 100;
+			}
 
 			return rgbPercentage;
 		}
 		return false;
 	},
 
-	validateHex: function(hex) {
+	validateHex: function (hex) {
 		hex = hex.replace(/[^0-9a-fA-F]/g, '').substr(0, 6);
-		if (hex.length < 3) { return false; }
+		if (hex.length < 3) {
+			return false;
+		}
 		return hex;
 	},
 
-	validateCmyk: function(cmyk) {
+	validateCmyk: function (cmyk) {
 		if (cmyk.hasOwnProperty('c') && cmyk.hasOwnProperty('m')
-				&& cmyk.hasOwnProperty('y') && cmyk.hasOwnProperty('k')) {
+			&& cmyk.hasOwnProperty('y') && cmyk.hasOwnProperty('k')) {
 			if ((!this.isInt(cmyk.c) && !this.isFloat(cmyk.c))
 				|| (!this.isInt(cmyk.m) && !this.isFloat(cmyk.m))
 				|| (!this.isInt(cmyk.y) && !this.isFloat(cmyk.y))
-				|| (!this.isInt(cmyk.k) && !this.isFloat(cmyk.k))) { return false; }
+				|| (!this.isInt(cmyk.k) && !this.isFloat(cmyk.k))) {
+				return false;
+			}
 
-			if (cmyk.c < 0) { cmyk.c = 0; }
-			if (cmyk.m < 0) { cmyk.m = 0; }
-			if (cmyk.y < 0) { cmyk.y = 0; }
-			if (cmyk.k < 0) { cmyk.k = 0; }
+			if (cmyk.c < 0) {
+				cmyk.c = 0;
+			}
+			if (cmyk.m < 0) {
+				cmyk.m = 0;
+			}
+			if (cmyk.y < 0) {
+				cmyk.y = 0;
+			}
+			if (cmyk.k < 0) {
+				cmyk.k = 0;
+			}
 
-			if (cmyk.c > 100) { cmyk.c = 100; }
-			if (cmyk.m > 100) { cmyk.m = 100; }
-			if (cmyk.y > 100) { cmyk.y = 100; }
-			if (cmyk.k > 100) { cmyk.k = 100; }
+			if (cmyk.c > 100) {
+				cmyk.c = 100;
+			}
+			if (cmyk.m > 100) {
+				cmyk.m = 100;
+			}
+			if (cmyk.y > 100) {
+				cmyk.y = 100;
+			}
+			if (cmyk.k > 100) {
+				cmyk.k = 100;
+			}
 
 			return cmyk;
 		}
 		return false;
 	},
 
-	validateAlpha: function(alpha) {
-		if ((this.isInt(alpha) && this.isFloat(alpha))) { return false; }
-		if (alpha < 0) { alpha = 0; }
-		if (alpha > 100) { alpha = 100; }
+	validateAlpha: function (alpha) {
+		if ((this.isInt(alpha) && this.isFloat(alpha))) {
+			return false;
+		}
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		if (alpha > 100) {
+			alpha = 100;
+		}
 		return alpha;
 	},
 
 	// Convertation functions below
-	convertPercentToHsv: function(percent) {
+	convertPercentToHsv: function (percent) {
 		if (!percent.hasOwnProperty('toneCursor')) {
 			percent.toneCursor = this.currentColor.percent.toneCursor;
 		}
@@ -277,9 +366,11 @@ var palette = {
 		return hsv;
 	},
 
-	convertHsvToPercent: function(hsv) {
+	convertHsvToPercent: function (hsv) {
 		var toneCursorX = (360 - hsv.h) / 3.60;
-		if (toneCursorX == 100) { toneCursorX = 0; }
+		if (toneCursorX == 100) {
+			toneCursorX = 0;
+		}
 
 		return {
 			toneCursor: {
@@ -293,16 +384,22 @@ var palette = {
 		}
 	},
 
-	convertRgbToHex: function(rgb) {
+	convertRgbToHex: function (rgb) {
 		var hex = {
 			r: Math.round(rgb.r).toString(16),
 			g: Math.round(rgb.g).toString(16),
 			b: Math.round(rgb.b).toString(16)
 		};
 
-		if (hex.r.length < 2) { hex.r = '0' + hex.r; }
-		if (hex.g.length < 2) { hex.g = '0' + hex.g; }
-		if (hex.b.length < 2) { hex.b = '0' + hex.b; }
+		if (hex.r.length < 2) {
+			hex.r = '0' + hex.r;
+		}
+		if (hex.g.length < 2) {
+			hex.g = '0' + hex.g;
+		}
+		if (hex.b.length < 2) {
+			hex.b = '0' + hex.b;
+		}
 
 		if ((hex.r[0] == hex.r[1]) && (hex.g[0] == hex.g[1]) && (hex.b[0] == hex.b[1])) {
 			hex.r = hex.r[0];
@@ -313,23 +410,23 @@ var palette = {
 		return hex.r + hex.g + hex.b;
 	},
 
-	convertHexToRgb: function(hex) {
+	convertHexToRgb: function (hex) {
 		if (hex.length == 3) {
-   		return {
-   			r: parseInt(hex[0] + hex[0], 16),
-   			g: parseInt(hex[1] + hex[1], 16),
-   			b: parseInt(hex[2] + hex[2], 16)
-   		};
-   	} else if (hex.length == 6) {
-   		return {
-   			r: parseInt(hex[0] + hex[1], 16),
-   			g: parseInt(hex[2] + hex[3], 16),
-   			b: parseInt(hex[4] + hex[5], 16)
-   		};
-   	}
+			return {
+				r: parseInt(hex[0] + hex[0], 16),
+				g: parseInt(hex[1] + hex[1], 16),
+				b: parseInt(hex[2] + hex[2], 16)
+			};
+		} else if (hex.length == 6) {
+			return {
+				r: parseInt(hex[0] + hex[1], 16),
+				g: parseInt(hex[2] + hex[3], 16),
+				b: parseInt(hex[4] + hex[5], 16)
+			};
+		}
 	},
 
-	convertRgbToRgbPercetage: function(rgb) {
+	convertRgbToRgbPercetage: function (rgb) {
 		return {
 			r: rgb.r * 100 / 255,
 			g: rgb.g * 100 / 255,
@@ -337,7 +434,7 @@ var palette = {
 		};
 	},
 
-	convertRgbPercentageToRgb: function(rgbPercentage) {
+	convertRgbPercentageToRgb: function (rgbPercentage) {
 		return {
 			r: rgbPercentage.r * 255 / 100,
 			g: rgbPercentage.g * 255 / 100,
@@ -345,7 +442,7 @@ var palette = {
 		};
 	},
 
-	convertRgbToHsv: function(rgb) {
+	convertRgbToHsv: function (rgb) {
 		r = rgb.r / 255;
 		g = rgb.g / 255;
 		b = rgb.b / 255;
@@ -376,7 +473,7 @@ var palette = {
 		return hsv;
 	},
 
-	convertHsvToRgb: function(hsv) {
+	convertHsvToRgb: function (hsv) {
 		var rgb = {r: 0, g: 0, b: 0},
 			h = Math.round(hsv.h),
 			s = Math.round(hsv.s),
@@ -389,21 +486,35 @@ var palette = {
 			vdec = v - a;
 
 		switch (h1) {
-			case 0: rgb = {r: v, g: vinc, b: vmin}; break;
-			case 1: rgb = {r: vdec, g: v, b: vmin}; break;
-			case 2: rgb = {r: vmin, g: v, b: vinc}; break;
-			case 3: rgb = {r: vmin, g: vdec, b: v}; break;
-			case 4: rgb = {r: vinc, g: vmin, b: v}; break;
-			case 5: rgb = {r: v, g: vmin, b: vdec}; break;
+			case 0:
+				rgb = {r: v, g: vinc, b: vmin};
+				break;
+			case 1:
+				rgb = {r: vdec, g: v, b: vmin};
+				break;
+			case 2:
+				rgb = {r: vmin, g: v, b: vinc};
+				break;
+			case 3:
+				rgb = {r: vmin, g: vdec, b: v};
+				break;
+			case 4:
+				rgb = {r: vinc, g: vmin, b: v};
+				break;
+			case 5:
+				rgb = {r: v, g: vmin, b: vdec};
+				break;
 		}
 
-		rgb.r *= 2.55; rgb.g *= 2.55; rgb.b *= 2.55;
+		rgb.r *= 2.55;
+		rgb.g *= 2.55;
+		rgb.b *= 2.55;
 
 		return rgb;
 	},
 
-	convertRgbToCmyk: function(rgb) {
-		var	r = rgb.r,
+	convertRgbToCmyk: function (rgb) {
+		var r = rgb.r,
 			g = rgb.g,
 			b = rgb.b,
 
@@ -413,36 +524,36 @@ var palette = {
 			computedK = 0;
 
 		// Removing spaces from input RGB values and convert to int
-		var r = parseInt((''+r).replace(/\s/g,''), 10),
-			g = parseInt((''+g).replace(/\s/g,''), 10), 
-			b = parseInt((''+b).replace(/\s/g,''), 10); 
+		var r = parseInt(('' + r).replace(/\s/g, ''), 10),
+			g = parseInt(('' + g).replace(/\s/g, ''), 10),
+			b = parseInt(('' + b).replace(/\s/g, ''), 10);
 
 		// Black
 		if (r === 0 && g === 0 && b === 0) {
 			return {c: 0, m: 0, y: 0, k: 100};
 		}
 
-		computedC = 1 - (r/255);
-		computedM = 1 - (g/255);
-		computedY = 1 - (b/255);
+		computedC = 1 - (r / 255);
+		computedM = 1 - (g / 255);
+		computedY = 1 - (b / 255);
 
-		var minCMY = Math.min(computedC, Math.min(computedM,computedY));
+		var minCMY = Math.min(computedC, Math.min(computedM, computedY));
 
-		computedC = (computedC - minCMY) / (1 - minCMY) ;
-		computedM = (computedM - minCMY) / (1 - minCMY) ;
-		computedY = (computedY - minCMY) / (1 - minCMY) ;
+		computedC = (computedC - minCMY) / (1 - minCMY);
+		computedM = (computedM - minCMY) / (1 - minCMY);
+		computedY = (computedY - minCMY) / (1 - minCMY);
 		computedK = minCMY;
 
 		var cmyk = {c: 0, m: 0, y: 0, k: 0};
-		cmyk.c = Math.round(computedC*100);
-		cmyk.m = Math.round(computedM*100);
-		cmyk.y = Math.round(computedY*100);
-		cmyk.k = Math.round(computedK*100);
+		cmyk.c = Math.round(computedC * 100);
+		cmyk.m = Math.round(computedM * 100);
+		cmyk.y = Math.round(computedY * 100);
+		cmyk.k = Math.round(computedK * 100);
 
 		return cmyk;
 	},
 
-	convertCmykToRgb: function(cmyk) {
+	convertCmykToRgb: function (cmyk) {
 		var c = cmyk.c / 100,
 			m = cmyk.m / 100,
 			y = cmyk.y / 100,
@@ -461,11 +572,11 @@ var palette = {
 
 	// Helpful functions
 	isInt: function (n) {
-    return Number(n) === n && n % 1 === 0;
+		return Number(n) === n && n % 1 === 0;
 	},
 
 	isFloat: function (n) {
-	    return Number(n) === n && n % 1 !== 0;
+		return Number(n) === n && n % 1 !== 0;
 	}
 };
 
@@ -1046,8 +1157,8 @@ mobileColorModelSelect.addEventListener('input', function() {
 	}
 });
 
-var nightModeSwitcher = document.getElementById('night-mode-switcher');
 function nightModeSwitch() {
+	const nightModeSwitcher = document.getElementById('night-mode-switcher');
 	if (nightModeSwitcher.classList.contains('night')) {
 		nightModeSwitcher.classList.remove('night');
 		document.body.classList.remove('night');

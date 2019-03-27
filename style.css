@@ -8,7 +8,7 @@
 	padding: 0;
 	margin: 0;
 
-	font-family: "San Francisco", arial;
+	font-family: "San Francisco", arial, sans-serif;
 }
 
 body {
@@ -27,8 +27,7 @@ body.night {
 	justify-content: flex-start;
 	flex-wrap: wrap;
 
-	margin: 0 auto;
-	margin-top: 6vh;
+	margin: 6vh auto 0;
 	width: 112vh;
 }
 
@@ -104,8 +103,7 @@ body.night {
 	box-sizing: border-box;
 	width: 30vh;
 	height: 5vh;
-	padding: 0.7vh 0;
-	padding-top: 0.9vh;
+	padding: 0.9vh 0 0.7vh;
 
 	text-align: center;
 	font-size: 3vh;
@@ -386,8 +384,7 @@ a:active {
 .night-switcher {
 	position: relative;
 
-	margin: 0 auto;
-	margin-top: 1vw;
+	margin: 1vw auto 0;
 
 	width: 5vw;
 	/*background: #f5f5f5;*/
@@ -414,8 +411,7 @@ a:active {
 	position: relative;
 	overflow: hidden;
 
-	margin: 0 auto;
-	margin-top: 1vw;
+	margin: 1vw auto 0;
 
 	border-style: solid;
 	/*border-color: #06f;*/
