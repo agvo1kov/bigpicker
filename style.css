@@ -412,7 +412,7 @@ a:active {
 }*/
 
 .night-switcher > .box {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	position: relative;
 	overflow: hidden;
 
@@ -431,7 +431,7 @@ a:active {
 }
 
 .svg-sun {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	position: absolute;
 	top: 3px;
 	right: 3px;
@@ -443,7 +443,7 @@ a:active {
 }
 
 .night .svg-sun {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	right: 26px;
 	opacity: 0;
 	fill: #fff;
@@ -451,7 +451,7 @@ a:active {
 }
 
 .moon {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	position: absolute;
 	top: 6px;
 	right: 7px;
@@ -464,7 +464,7 @@ a:active {
 }
 
 .night .moon {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	opacity: 1;
 	right: 31px;
 	transform: scale(1.2);
@@ -472,7 +472,7 @@ a:active {
 }
 
 .dark-side-of-moon {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	position: absolute;
 	top: 4px;
 	left: 0;
@@ -487,7 +487,7 @@ a:active {
 }
 
 .night-switcher.night .box {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	background: #000;
 	border-color: #616161;
 }
