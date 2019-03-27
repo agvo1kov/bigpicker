@@ -17,7 +17,7 @@ body {
 }
 
 body.night {
-	transition: all 0.1s linear 0s;
+	transition: all 1s linear 0s;
 	background: black;
 }
 
@@ -236,6 +236,10 @@ a:active {
 
 /* Only mobile elements */
 @media (orientation: portrait) {
+	.night-switcher {
+		display: none;
+	}
+
 	.mobile-background {
 		display: initial;
 		position: fixed;
@@ -386,7 +390,8 @@ a:active {
 
 	margin: 1vw auto 0;
 
-	width: 5vw;
+	/*width: 5vw;*/
+	width: 50px;
 	/*background: #f5f5f5;*/
 
 	cursor: pointer;
@@ -407,84 +412,88 @@ a:active {
 }*/
 
 .night-switcher > .box {
-	transition: all 0.1s linear 0s;
+	transition: all 1s linear 0s;
 	position: relative;
 	overflow: hidden;
 
-	margin: 1vw auto 0;
+	/*margin: 1vw auto 0;*/
+	margin: 20px auto 0;
 
 	border-style: solid;
 	/*border-color: #06f;*/
 	border-color: #616161;
-	border-width: 0.12vw;
+	border-width: 2px;
 
-	width: 3.4vw;
-	height: 1.67vw;
-	border-radius: 5vw;
+	width: 100%;
+	height: 25px;
+	border-radius: 25px;
 	background: #fff;
 }
 
 .svg-sun {
-	transition: all 0.1s linear 0s;
+	transition: all 1s linear 0s;
 	position: absolute;
-	top: 0.07vw;
-	right: 0.1vw;
-	width: 50%;
-	height: 100%;
+	top: 3px;
+	right: 3px;
+	height: 21px;
 	/*display: none;*/
 	fill: #616161;
 	/*fill: black;*/
 	/*transform: translate(4vw, 0.3vw) scale(0.16);*/
 }
 
-.moon {
-	transition: all 0.1s linear 0s;
-	position: absolute;
-	top: 0.4vw;
-	right: 0.55vw;
-	width: 0.9vw;
-	height: 0.9vw;
-	border-radius: 1vw;
-	background: #fff;
-	/*opacity: 0;*/
-}
-
-.dark-side-of-moon {
-	transition: all 0.1s linear 0s;
-	position: absolute;
-	top: 0.3vw;
-	left: -1vw;
-	width: 0.9vw;
-	height: 0.9vw;
-	border-radius: 1vw;
-	background: #fff;
-	transform: scale(1.2);
-}
-
-.night-switcher.night .svg-sun {
-	transition: all 0.1s linear 0s;
-	right: 50%;
+.night .svg-sun {
+	transition: all 1s linear 0s;
+	right: 26px;
 	opacity: 0;
 	fill: #fff;
 	transform: rotate(-90deg) scale(0.6);
 }
 
-.night-switcher.night .moon {
-	transition: all 0.1s linear 0s;
+.moon {
+	transition: all 1s linear 0s;
+	position: absolute;
+	top: 6px;
+	right: 7px;
+	width: 13px;
+	height: 13px;
+	border-radius: 13px;
+	background: #fff;
+	transform: scale(0.5);
+	opacity: 0;
+}
+
+.night .moon {
+	transition: all 1s linear 0s;
 	opacity: 1;
-	right: 60%;
+	right: 31px;
 	transform: scale(1.2);
 	background: #616161;
 }
 
+.dark-side-of-moon {
+	transition: all 1s linear 0s;
+	position: absolute;
+	top: 4px;
+	left: 0;
+	width: 13px;
+	height: 13px;
+	border-radius: 100%;
+	background: white;
+	transform: scale(1.2);
+}
+.night .dark-side-of-moon {
+	background: black;
+}
+
 .night-switcher.night .box {
-	transition: all 0.1s linear 0s;
+	transition: all 1s linear 0s;
 	background: #000;
 	border-color: #616161;
 }
 
-.night-switcher.night > .box > .dark-side-of-moon {
-	transition: all 0.1s linear 0s;
-	left: 0.8vw;
-	background: #000;
-}
+/*.night-switcher.night > .box > .dark-side-of-moon {*/
+	/*transition: all 1s linear 0s;*/
+	/*left: 1px;*/
+	/*background: #000;*/
+/*}*/

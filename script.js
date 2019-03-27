@@ -54,7 +54,7 @@ const palette = {
 
 			this.currentColor.hsv = this.convertPercentToHsv(percent);
 			this.currentColor.rgb = this.convertHsvToRgb(this.currentColor.hsv);
-			this.currentColor.rgbPercentage = this.convertRgbToRgbPercetage(this.currentColor.rgb);
+			this.currentColor.rgbPercentage = this.convertRgbToRgbPercentage(this.currentColor.rgb);
 			this.currentColor.hex = this.convertRgbToHex(this.currentColor.rgb);
 			this.currentColor.cmyk = this.convertRgbToCmyk(this.currentColor.rgb);
 		}
@@ -100,7 +100,7 @@ const palette = {
 		if (this.validateHex(hex)) {
 			this.currentColor.hex = hex;
 			this.currentColor.rgb = this.convertHexToRgb(hex);
-			this.currentColor.rgbPercentage = this.convertRgbToRgbPercetage(this.currentColor.rgb);
+			this.currentColor.rgbPercentage = this.convertRgbToRgbPercentage(this.currentColor.rgb);
 			this.currentColor.hsv = this.convertRgbToHsv(this.currentColor.rgb);
 			this.currentColor.percent = this.convertHsvToPercent(this.currentColor.hsv);
 			this.currentColor.cmyk = this.convertRgbToCmyk(this.currentColor.rgb);
@@ -112,7 +112,7 @@ const palette = {
 		if (cmyk) {
 			this.currentColor.cmyk = cmyk;
 			this.currentColor.rgb = this.convertCmykToRgb(cmyk);
-			this.currentColor.rgbPercentage = this.convertRgbToRgbPercetage(this.currentColor.rgb);
+			this.currentColor.rgbPercentage = this.convertRgbToRgbPercentage(this.currentColor.rgb);
 			this.currentColor.hex = this.convertRgbToHex(this.currentColor.rgb);
 			this.currentColor.hsv = this.convertRgbToHsv(this.currentColor.rgb);
 			this.currentColor.percent = this.convertHsvToPercent(this.currentColor.hsv);
@@ -346,7 +346,7 @@ const palette = {
 		return alpha;
 	},
 
-	// Convertation functions below
+	// Conversion functions below
 	convertPercentToHsv: function (percent) {
 		if (!percent.hasOwnProperty('toneCursor')) {
 			percent.toneCursor = this.currentColor.percent.toneCursor;
@@ -354,21 +354,21 @@ const palette = {
 		if (!percent.hasOwnProperty('colorCursor')) {
 			percent.colorCursor = this.currentColor.percent.colorCursor;
 		}
-		var hsv = {
+		const hsv = {
 			h: (360 - percent.toneCursor.x * 3.60),
 			s: percent.colorCursor.x,
 			v: (100 - percent.colorCursor.y)
 		};
 
-		if (hsv.h == 360) hsv.h = 0;
-		if (hsv.v == 0) hsv.s = 0;
+		if (hsv.h === 360) hsv.h = 0;
+		if (hsv.v === 0) hsv.s = 0;
 
 		return hsv;
 	},
 
 	convertHsvToPercent: function (hsv) {
-		var toneCursorX = (360 - hsv.h) / 3.60;
-		if (toneCursorX == 100) {
+		let toneCursorX = (360 - hsv.h) / 3.60;
+		if (toneCursorX === 100) {
 			toneCursorX = 0;
 		}
 
@@ -385,7 +385,7 @@ const palette = {
 	},
 
 	convertRgbToHex: function (rgb) {
-		var hex = {
+		const hex = {
 			r: Math.round(rgb.r).toString(16),
 			g: Math.round(rgb.g).toString(16),
 			b: Math.round(rgb.b).toString(16)
@@ -401,7 +401,7 @@ const palette = {
 			hex.b = '0' + hex.b;
 		}
 
-		if ((hex.r[0] == hex.r[1]) && (hex.g[0] == hex.g[1]) && (hex.b[0] == hex.b[1])) {
+		if ((hex.r[0] === hex.r[1]) && (hex.g[0] === hex.g[1]) && (hex.b[0] === hex.b[1])) {
 			hex.r = hex.r[0];
 			hex.g = hex.g[0];
 			hex.b = hex.b[0];
@@ -411,13 +411,13 @@ const palette = {
 	},
 
 	convertHexToRgb: function (hex) {
-		if (hex.length == 3) {
+		if (hex.length === 3) {
 			return {
 				r: parseInt(hex[0] + hex[0], 16),
 				g: parseInt(hex[1] + hex[1], 16),
 				b: parseInt(hex[2] + hex[2], 16)
 			};
-		} else if (hex.length == 6) {
+		} else if (hex.length === 6) {
 			return {
 				r: parseInt(hex[0] + hex[1], 16),
 				g: parseInt(hex[2] + hex[3], 16),
@@ -426,7 +426,7 @@ const palette = {
 		}
 	},
 
-	convertRgbToRgbPercetage: function (rgb) {
+	convertRgbToRgbPercentage: function (rgb) {
 		return {
 			r: rgb.r * 100 / 255,
 			g: rgb.g * 100 / 255,
@@ -443,28 +443,28 @@ const palette = {
 	},
 
 	convertRgbToHsv: function (rgb) {
-		r = rgb.r / 255;
-		g = rgb.g / 255;
-		b = rgb.b / 255;
-		var max = Math.max(r, g, b),
+		const r = rgb.r / 255;
+		const g = rgb.g / 255;
+		const b = rgb.b / 255;
+		const max = Math.max(r, g, b),
 			min = Math.min(r, g, b),
 			hsv = this.currentColor.hsv;
 
 		if (!((r === g) && (g === b))) {
-			if (max == min) {
+			if (max === min) {
 				hsv.h = 0;
-			} else if ((max == r) && (g >= b)) {
+			} else if ((max === r) && (g >= b)) {
 				hsv.h = 60 * ((g - b) / (max - min));
-			} else if ((max == r) && (g < b)) {
+			} else if ((max === r) && (g < b)) {
 				hsv.h = 60 * ((g - b) / (max - min)) + 360;
-			} else if (max == g) {
+			} else if (max === g) {
 				hsv.h = 60 * ((b - r) / (max - min)) + 120;
-			} else if (max == b) {
+			} else if (max === b) {
 				hsv.h = 60 * ((r - g) / (max - min)) + 240;
 			}
 		}
 
-		if (max == 0) {
+		if (max === 0) {
 			hsv.s = 0;
 		} else {
 			hsv.s = (1 - min / max) * 100;
@@ -474,7 +474,7 @@ const palette = {
 	},
 
 	convertHsvToRgb: function (hsv) {
-		var rgb = {r: 0, g: 0, b: 0},
+		let rgb = {r: 0, g: 0, b: 0},
 			h = Math.round(hsv.h),
 			s = Math.round(hsv.s),
 			v = Math.round(hsv.v),
@@ -514,37 +514,29 @@ const palette = {
 	},
 
 	convertRgbToCmyk: function (rgb) {
-		var r = rgb.r,
-			g = rgb.g,
-			b = rgb.b,
-
-			computedC = 0,
-			computedM = 0,
-			computedY = 0,
-			computedK = 0;
-
 		// Removing spaces from input RGB values and convert to int
-		var r = parseInt(('' + r).replace(/\s/g, ''), 10),
-			g = parseInt(('' + g).replace(/\s/g, ''), 10),
-			b = parseInt(('' + b).replace(/\s/g, ''), 10);
+		let r = parseInt(('' + rgb.r).replace(/\s/g, ''), 10),
+			g = parseInt(('' + rgb.g).replace(/\s/g, ''), 10),
+			b = parseInt(('' + rgb.b).replace(/\s/g, ''), 10);
 
 		// Black
 		if (r === 0 && g === 0 && b === 0) {
 			return {c: 0, m: 0, y: 0, k: 100};
 		}
 
-		computedC = 1 - (r / 255);
-		computedM = 1 - (g / 255);
-		computedY = 1 - (b / 255);
+		let computedC = 1 - (r / 255),
+			computedM = 1 - (g / 255),
+			computedY = 1 - (b / 255),
+			computedK;
 
-		var minCMY = Math.min(computedC, Math.min(computedM, computedY));
+		const minCMY = Math.min(computedC, Math.min(computedM, computedY));
 
 		computedC = (computedC - minCMY) / (1 - minCMY);
 		computedM = (computedM - minCMY) / (1 - minCMY);
 		computedY = (computedY - minCMY) / (1 - minCMY);
 		computedK = minCMY;
 
-		var cmyk = {c: 0, m: 0, y: 0, k: 0};
+		const cmyk = {c: 0, m: 0, y: 0, k: 0};
 		cmyk.c = Math.round(computedC * 100);
 		cmyk.m = Math.round(computedM * 100);
 		cmyk.y = Math.round(computedY * 100);
@@ -554,7 +546,7 @@ const palette = {
 	},
 
 	convertCmykToRgb: function (cmyk) {
-		var c = cmyk.c / 100,
+		let c = cmyk.c / 100,
 			m = cmyk.m / 100,
 			y = cmyk.y / 100,
 			k = cmyk.k / 100;
@@ -583,15 +575,15 @@ const palette = {
 
 // UI describing
 
-var touchIntent = false,
+let touchIntent = false,
 	wrapper = document.getElementById('wrapper'),
 
 	colorPicker = document.getElementById('colorPicker'),
 	tonePicker = document.getElementById('tonePicker'),
 	alphaPicker = document.getElementById('alphaPicker'),
 
-	info = document.getElementById('info'),
-	colorPreview = document.getElementById('colorPreview'),
+	// info = document.getElementById('info'),
+	// colorPreview = document.getElementById('colorPreview'),
 	toneColor = document.getElementById('toneColor'),
 	transparentGradientColorStart = document.getElementById('transparentGradientColorStart'),
 	transparentGradientColorEnd = document.getElementById('transparentGradientColorEnd'),
@@ -605,8 +597,9 @@ var touchIntent = false,
 
 	exampleText = document.getElementById('exampleText'),
 
-	colorPickerCursorInnerRing = document.getElementById('colorPickerCursorInnerRing'),
-	colorPickerCursorOuterRing = document.getElementById('colorPickerCursorOuterRing'),
+	// colorPickerCursorInnerRing = document.getElementById('colorPickerCursorInnerRing'),
+	// colorPickerCursorOuterRing = document.getElementById('colorPickerCursorOuterRing'),
+	colorPickerCursor = document.getElementById('colorPickerCursor');
 	tonePickerCursor = document.getElementById('tonePickerCursor'),
 	tonePickerCursorVertical = document.getElementById('tonePickerCursorVertical'),
 	tonePickerCursorHorizontal = document.getElementById('tonePickerCursorHorizontal'),
@@ -616,7 +609,7 @@ var touchIntent = false,
 	mobileColorModelSelect = document.getElementById('mobileColorModelSelect'),
 	mobileBackground = document.getElementById('mobileBackground');
 
-var ui = {
+const ui = {
 	selectedInput: hexInput,
 	deviceIsSmartphoneOrTablet: !(navigator.userAgent.match(/Android/i)
 		|| navigator.userAgent.match(/webOS/i)
@@ -628,7 +621,7 @@ var ui = {
 	exampleText: 'Example text for <b>demonstration</b>',
 	url: window.location.pathname,
 	portraitOrientation: window.matchMedia('(orientation: portrait)').matches
-}
+};
 
 function updateUI(from) {
 	rectColor.setAttribute('fill', 'rgba(' + Math.round(palette.currentColor.rgb.r) + ', ' 
@@ -636,7 +629,7 @@ function updateUI(from) {
 		+ Math.round(palette.currentColor.rgb.b) + ', '
 		+ palette.currentColor.alpha + ')');
 
-	var toneRgb = palette.convertHsvToRgb({
+	const toneRgb = palette.convertHsvToRgb({
 		h: palette.currentColor.hsv.h,
 		s: 100,
 		v: 100
@@ -657,36 +650,36 @@ function updateUI(from) {
 	 + Math.round(palette.currentColor.rgb.g) + ', '
 	 + Math.round(palette.currentColor.rgb.b) + ')');
 
-	var rgbInputString = Math.round(palette.currentColor.rgb.r) + ', '
+	let rgbInputString = Math.round(palette.currentColor.rgb.r) + ', '
 		+ Math.round(palette.currentColor.rgb.g) + ', '
 		+ Math.round(palette.currentColor.rgb.b),
 
 		rgbPercentageInputString = Math.round(palette.currentColor.rgbPercentage.r) / 100 + ', '
-		+ Math.round(palette.currentColor.rgbPercentage.g) / 100 + ', '
-		+ Math.round(palette.currentColor.rgbPercentage.b) / 100,
+			+ Math.round(palette.currentColor.rgbPercentage.g) / 100 + ', '
+			+ Math.round(palette.currentColor.rgbPercentage.b) / 100,
 
 		hsvInputString = Math.round(palette.currentColor.hsv.h) + ', '
-		+ Math.round(palette.currentColor.hsv.s) + ', '
-		+ Math.round(palette.currentColor.hsv.v),
+			+ Math.round(palette.currentColor.hsv.s) + ', '
+			+ Math.round(palette.currentColor.hsv.v),
 
 		cmykInputString = Math.round(palette.currentColor.cmyk.c) + ', '
-		+ Math.round(palette.currentColor.cmyk.m) + ', '
-		+ Math.round(palette.currentColor.cmyk.y) + ', '
-		+ Math.round(palette.currentColor.cmyk.k);
+			+ Math.round(palette.currentColor.cmyk.m) + ', '
+			+ Math.round(palette.currentColor.cmyk.y) + ', '
+			+ Math.round(palette.currentColor.cmyk.k);
 
 	if (palette.currentColor.alpha !== 1) {
-		var alpha = Math.round(palette.currentColor.alpha * 100) / 100;
+		const alpha = Math.round(palette.currentColor.alpha * 100) / 100;
 		rgbInputString += ', ' + alpha;
 		rgbPercentageInputString += ', ' + alpha;
 		hsvInputString += ', ' + alpha;
 		cmykInputString += ', ' + alpha;
 	}
 
-	if (hexInput != from) { hexInput.value = palette.currentColor.hex; }
-	if (rgbInput != from) { rgbInput.value = rgbInputString; }
-	if (rgbPercentageInput != from) { rgbPercentageInput.value = rgbPercentageInputString; }
-	if (hsvInput != from) { hsvInput.value = hsvInputString; }
-	if (cmykInput != from) { cmykInput.value = cmykInputString; }
+	if (hexInput !== from) { hexInput.value = palette.currentColor.hex; }
+	if (rgbInput !== from) { rgbInput.value = rgbInputString; }
+	if (rgbPercentageInput !== from) { rgbPercentageInput.value = rgbPercentageInputString; }
+	if (hsvInput !== from) { hsvInput.value = hsvInputString; }
+	if (cmykInput !== from) { cmykInput.value = cmykInputString; }
 
 	exampleText.innerHTML = ui.exampleText;
 	exampleText.style.color = 'rgba(' + Math.round(palette.currentColor.rgb.r) + ', ' 
@@ -758,7 +751,7 @@ colorPicker.addEventListener('mousedown', function(event) {
 
 colorPicker.addEventListener('touchstart', function(event) {
 	if (event.targetTouches.length > 0) {
-		var touch = event.targetTouches[0];
+		const touch = event.targetTouches[0];
 		colorChoosingActionStart(touch.pageX, touch.pageY);
 	}
 });
@@ -766,7 +759,7 @@ colorPicker.addEventListener('touchstart', function(event) {
 function toneChoosingActionStart(coordinate) {
 	wrapper.classList.add('non-select');
 	tonePickerCursor.classList.add('scale-out-anim');
-	var tonePercent = (coordinate.y - tonePicker.offsetTop) * 100 / tonePicker.clientHeight;
+	let tonePercent = (coordinate.y - tonePicker.offsetTop) * 100 / tonePicker.clientHeight;
 	if (ui.portraitOrientation) {
 		tonePercent = (coordinate.x - tonePicker.offsetLeft) * 100 / tonePicker.clientWidth;
 	}
@@ -788,7 +781,7 @@ tonePicker.addEventListener('mousedown', function(event) {
 
 tonePicker.addEventListener('touchstart', function(event) {
 	if (event.targetTouches.length > 0) {
-		var touch = event.targetTouches[0];
+		const touch = event.targetTouches[0];
 		toneChoosingActionStart({
 			x: touch.pageX,
 			y: touch.pageY
@@ -810,14 +803,14 @@ alphaPicker.addEventListener('mousedown', function(event) {
 
 alphaPicker.addEventListener('touchstart', function(event) {
 	if (event.targetTouches.length > 0) {
-		var touch = event.targetTouches[0];
+		const touch = event.targetTouches[0];
 		alphaChoosingActionStart(touch.pageX);
 	}
 });
 
 document.addEventListener('touchmove', function(event) {
 	if (event.targetTouches.length > 0) {
-		var touch = event.targetTouches[0];
+		const touch = event.targetTouches[0];
 
 		actionsHandler({
 			x: touch.pageX,
@@ -846,7 +839,7 @@ function actionsHandler(coordinate) {
 			break;
 
 		case 'tone':
-			var tonePercent = (coordinate.y - tonePicker.offsetTop) * 100 / tonePicker.clientHeight;
+			let tonePercent = (coordinate.y - tonePicker.offsetTop) * 100 / tonePicker.clientHeight;
 			if (ui.portraitOrientation) {
 				tonePercent = (coordinate.x - tonePicker.offsetLeft) * 100 / tonePicker.clientWidth;
 			}
@@ -866,17 +859,17 @@ function actionsHandler(coordinate) {
 	}
 }
 
-document.addEventListener('mouseup', function(event) {
+document.addEventListener('mouseup', function() {
 	actionsEnd();
 });
 
-document.addEventListener('touchend', function(event) {
+document.addEventListener('touchend', function() {
 	actionsEnd();
 });
 
 function changeUrl() {
 	// Changing url
-	var alphaUrlString = '';
+	let alphaUrlString = '';
 	if (palette.currentColor.alpha !== 1) {
 		alphaUrlString = '&alpha=' + (Math.round(palette.currentColor.alpha * 100) / 100);
 	}
@@ -905,32 +898,32 @@ function actionsEnd() {
 
 // Changing color via inputs
 
-hexInput.addEventListener('input', function () { 
-	var hexInputString = hexInput.value.replace(/[^0-9a-fA-F]/g, '').substr(0, 6);
-	hexInput.vakue = hexInputString;
-	palette.setColorFromHex(hexInput.value);
+hexInput.addEventListener('input', function () {
+	const hexInputString = hexInput.value.replace(/[^0-9a-fA-F]/g, '').substr(0, 6);
+	hexInput.value = hexInputString;
+	palette.setColorFromHex(hexInputString);
 	updateUI(hexInput);
 
 	changeUrl()
 });
 
-rgbInput.addEventListener('input', function () { 
-	var rgbInputString = rgbInput.value.replace(/[^0-9., ]/g, '');
+rgbInput.addEventListener('input', function () {
+	let rgbInputString = rgbInput.value.replace(/[^0-9., ]/g, '');
 	rgbInput.value = rgbInputString;
 
-	var rgb = {
+	const rgb = {
 		r: palette.currentColor.rgb.r,
 		g: palette.currentColor.rgb.g,
 		b: palette.currentColor.rgb.b
 	};
 
-	rgbInputString = rgbInputString.split(',');
-	if (rgbInputString.length >= 3) {
-		rgb.r = rgbInputString[0] * 1;
-		rgb.g = rgbInputString[1] * 1;
-		rgb.b = rgbInputString[2] * 1;
-		if (rgbInputString.length > 3) {
-			palette.setAlpha(rgbInputString[3] * 100);
+	const rgbInputStringParts = rgbInputString.split(',');
+	if (rgbInputStringParts.length >= 3) {
+		rgb.r = rgbInputStringParts[0] * 1;
+		rgb.g = rgbInputStringParts[1] * 1;
+		rgb.b = rgbInputStringParts[2] * 1;
+		if (rgbInputStringParts.length > 3) {
+			palette.setAlpha(rgbInputStringParts[3] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -941,23 +934,23 @@ rgbInput.addEventListener('input', function () {
 	changeUrl()
 });
 
-rgbPercentageInput.addEventListener('input', function () { 
-	var rgbPercentageInputString = rgbPercentageInput.value.replace(/[^0-9., ]/g, '');
+rgbPercentageInput.addEventListener('input', function () {
+	let rgbPercentageInputString = rgbPercentageInput.value.replace(/[^0-9., ]/g, '');
 	rgbPercentageInput.value = rgbPercentageInputString;
 
-	var rgbPercentage = {
+	const rgbPercentage = {
 		r: palette.currentColor.rgbPercentage.r,
 		g: palette.currentColor.rgbPercentage.g,
 		b: palette.currentColor.rgbPercentage.b
 	};
 
-	rgbPercentageInputString = rgbPercentageInputString.split(',');
-	if (rgbPercentageInputString.length >= 3) {
-		rgbPercentage.r = rgbPercentageInputString[0] * 100;
-		rgbPercentage.g = rgbPercentageInputString[1] * 100;
-		rgbPercentage.b = rgbPercentageInputString[2] * 100;
-		if (rgbPercentageInputString.length > 3) {
-			palette.setAlpha(rgbPercentageInputString[3] * 100);
+	const rgbPercentageInputStringParts = rgbPercentageInputString.split(',');
+	if (rgbPercentageInputStringParts.length >= 3) {
+		rgbPercentage.r = rgbPercentageInputStringParts[0] * 100;
+		rgbPercentage.g = rgbPercentageInputStringParts[1] * 100;
+		rgbPercentage.b = rgbPercentageInputStringParts[2] * 100;
+		if (rgbPercentageInputStringParts.length > 3) {
+			palette.setAlpha(rgbPercentageInputStringParts[3] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -968,23 +961,23 @@ rgbPercentageInput.addEventListener('input', function () {
 	changeUrl()
 });
 
-hsvInput.addEventListener('input', function () { 
-	var hsvInputString = hsvInput.value.replace(/[^0-9., ]/g, '');
+hsvInput.addEventListener('input', function () {
+	const hsvInputString = hsvInput.value.replace(/[^0-9., ]/g, '');
 	hsvInput.value = hsvInputString;
 
-	var hsv = {
+	const hsv = {
 		h: palette.currentColor.hsv.h,
 		s: palette.currentColor.hsv.s,
 		v: palette.currentColor.hsv.v
 	};
 
-	hsvInputString = hsvInputString.split(',');
-	if (hsvInputString.length >= 3) {
-		hsv.h = hsvInputString[0] * 1;
-		hsv.s = hsvInputString[1] * 1;
-		hsv.v = hsvInputString[2] * 1;
-		if (hsvInputString.length > 3) {
-			palette.setAlpha(hsvInputString[3] * 100);
+	const hsvInputStringParts = hsvInputString.split(',');
+	if (hsvInputStringParts.length >= 3) {
+		hsv.h = hsvInputStringParts[0] * 1;
+		hsv.s = hsvInputStringParts[1] * 1;
+		hsv.v = hsvInputStringParts[2] * 1;
+		if (hsvInputStringParts.length > 3) {
+			palette.setAlpha(hsvInputStringParts[3] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -995,25 +988,25 @@ hsvInput.addEventListener('input', function () {
 	changeUrl()
 });
 
-cmykInput.addEventListener('input', function () { 
-	var cmykInputString = cmykInput.value.replace(/[^0-9., ]/g, '');
+cmykInput.addEventListener('input', function () {
+	const cmykInputString = cmykInput.value.replace(/[^0-9., ]/g, '');
 	cmykInput.value = cmykInputString;
 
-	var cmyk = {
+	const cmyk = {
 		c: palette.currentColor.hsv.c,
 		m: palette.currentColor.hsv.m,
 		y: palette.currentColor.hsv.y,
 		k: palette.currentColor.hsv.k
 	};
 
-	cmykInputString = cmykInputString.split(',');
-	if (cmykInputString.length >= 4) {
-		cmyk.c = cmykInputString[0] * 1;
-		cmyk.m = cmykInputString[1] * 1;
-		cmyk.y = cmykInputString[2] * 1;
-		cmyk.k = cmykInputString[3] * 1;
-		if (cmykInputString.length > 4) {
-			palette.setAlpha(cmykInputString[4] * 100);
+	const cmykInputStringParts = cmykInputString.split(',');
+	if (cmykInputStringParts.length >= 4) {
+		cmyk.c = cmykInputStringParts[0] * 1;
+		cmyk.m = cmykInputStringParts[1] * 1;
+		cmyk.y = cmykInputStringParts[2] * 1;
+		cmyk.k = cmykInputStringParts[3] * 1;
+		if (cmykInputStringParts.length > 4) {
+			palette.setAlpha(cmykInputStringParts[4] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -1063,7 +1056,7 @@ function toSelectInput(input) {
 }
 
 if (localStorage.getItem('selectedInputId') !== null) {
-	var input = document.getElementById( localStorage.getItem('selectedInputId') );
+	const input = document.getElementById(localStorage.getItem('selectedInputId'));
 	if (input !== null) {
 		toSelectInput(input);
 	}
@@ -1079,7 +1072,7 @@ cmykInput.addEventListener('focus', function () { toSelectInput(this); });
 // Getting color from URL
 
 function recoveryColorFromUrl() {
-	var getParams = getJsonFromUrl();
+	const getParams = getJsonFromUrl();
 	if (getParams.hasOwnProperty('hex')) {
 		palette.setColorFromHex(getParams.hex);
 
@@ -1104,17 +1097,17 @@ function recoveryColorFromUrl() {
 
 if (recoveryColorFromUrl()) {
 	Array.prototype.filter.call(cursors, function(cursor){
-		cursor.style.opacity = 1;
+		cursor.style.opacity = '1';
 		cursor.style.transition = 'all 0.1s linear 0s';
 	});
 }
 
 function getJsonFromUrl() {
-	var query = location.search.substr(1);
-	var result = {};
+	const query = location.search.substr(1);
+	let result = [];
 
-	query.split("&").forEach(function(part) {
-		var item = part.split("=");
+	query.split('&').forEach(function(part) {
+		const item = part.split('=');
 		result[item[0]] = decodeURIComponent(item[1]);
 	});
 
@@ -1157,8 +1150,8 @@ mobileColorModelSelect.addEventListener('input', function() {
 	}
 });
 
+const nightModeSwitcher = document.getElementById('night-mode-switcher');
 function nightModeSwitch() {
-	const nightModeSwitcher = document.getElementById('night-mode-switcher');
 	if (nightModeSwitcher.classList.contains('night')) {
 		nightModeSwitcher.classList.remove('night');
 		document.body.classList.remove('night');
@@ -1170,7 +1163,7 @@ function nightModeSwitch() {
 	}
 }
 
-if (localStorage.getItem('night-mode') == 'on') {
+if (localStorage.getItem('night-mode') === 'on') {
 	document.body.style.transitionDuration = "0s";
 	nightModeSwitcher.classList.add('night');
 	document.body.classList.add('night');
@@ -1178,7 +1171,7 @@ if (localStorage.getItem('night-mode') == 'on') {
 }
 
 window.onfocus = function () {
-	if (localStorage.getItem('night-mode') == 'on') {
+	if (localStorage.getItem('night-mode') === 'on') {
 		document.body.style.transitionDuration = "0s";
 		nightModeSwitcher.classList.add('night');
 		document.body.classList.add('night');
@@ -1189,4 +1182,4 @@ window.onfocus = function () {
 		document.body.classList.remove('night');
 		document.body.style.transitionDuration = "0.1s";
 	}
-}
+};
