@@ -66,7 +66,7 @@ const palette = {
 			this.currentColor.hsv = hsv;
 			this.currentColor.percent = this.convertHsvToPercent(hsv);
 			this.currentColor.rgb = this.convertHsvToRgb(this.currentColor.hsv);
-			this.currentColor.rgbPercentage = this.convertRgbToRgbPercetage(this.currentColor.rgb);
+			this.currentColor.rgbPercentage = this.convertRgbToRgbPercentage(this.currentColor.rgb);
 			this.currentColor.hex = this.convertRgbToHex(this.currentColor.rgb);
 			this.currentColor.cmyk = this.convertRgbToCmyk(this.currentColor.rgb);
 		}
@@ -78,7 +78,7 @@ const palette = {
 			this.currentColor.hsv = this.convertRgbToHsv(rgb);
 			this.currentColor.percent = this.convertHsvToPercent(this.currentColor.hsv);
 			this.currentColor.rgb = rgb;
-			this.currentColor.rgbPercentage = this.convertRgbToRgbPercetage(this.currentColor.rgb);
+			this.currentColor.rgbPercentage = this.convertRgbToRgbPercentage(this.currentColor.rgb);
 			this.currentColor.hex = this.convertRgbToHex(this.currentColor.rgb);
 			this.currentColor.cmyk = this.convertRgbToCmyk(this.currentColor.rgb);
 		}
@@ -900,7 +900,7 @@ function actionsEnd() {
 
 hexInput.addEventListener('input', function () {
 	const hexInputString = hexInput.value.replace(/[^0-9a-fA-F]/g, '').substr(0, 6);
-	hexInput.value = hexInputString;
+	// hexInput.value = hexInputString;
 	palette.setColorFromHex(hexInputString);
 	updateUI(hexInput);
 
@@ -909,7 +909,7 @@ hexInput.addEventListener('input', function () {
 
 rgbInput.addEventListener('input', function () {
 	let rgbInputString = rgbInput.value.replace(/[^0-9., ]/g, '');
-	rgbInput.value = rgbInputString;
+	// rgbInput.value = rgbInputString;
 
 	const rgb = {
 		r: palette.currentColor.rgb.r,
@@ -936,7 +936,7 @@ rgbInput.addEventListener('input', function () {
 
 rgbPercentageInput.addEventListener('input', function () {
 	let rgbPercentageInputString = rgbPercentageInput.value.replace(/[^0-9., ]/g, '');
-	rgbPercentageInput.value = rgbPercentageInputString;
+	// rgbPercentageInput.value = rgbPercentageInputString;
 
 	const rgbPercentage = {
 		r: palette.currentColor.rgbPercentage.r,
@@ -963,7 +963,7 @@ rgbPercentageInput.addEventListener('input', function () {
 
 hsvInput.addEventListener('input', function () {
 	const hsvInputString = hsvInput.value.replace(/[^0-9., ]/g, '');
-	hsvInput.value = hsvInputString;
+	// hsvInput.value = hsvInputString;
 
 	const hsv = {
 		h: palette.currentColor.hsv.h,
@@ -990,7 +990,7 @@ hsvInput.addEventListener('input', function () {
 
 cmykInput.addEventListener('input', function () {
 	const cmykInputString = cmykInput.value.replace(/[^0-9., ]/g, '');
-	cmykInput.value = cmykInputString;
+	// cmykInput.value = cmykInputString;
 
 	const cmyk = {
 		c: palette.currentColor.hsv.c,
@@ -1163,7 +1163,7 @@ function nightModeSwitch() {
 	}
 }
 
-const getDefaultTheme = () => {
+function getDefaultTheme() {
 	const userTheme = localStorage.getItem('journalbook_theme');
 
 	if (userTheme !== null) {
