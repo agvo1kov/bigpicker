@@ -1171,13 +1171,13 @@ function getDefaultTheme() {
 	}
 
 	if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		console.log('Dark theme enabled.');
 		return 'dark';
 	}
+	console.log('Bright theme enabled.');
 
 	return '';
 };
-
-console.log(getDefaultTheme());
 
 if ((localStorage.getItem('night-mode') === 'on')
 	|| getDefaultTheme() === 'dark') {
@@ -1185,6 +1185,8 @@ if ((localStorage.getItem('night-mode') === 'on')
 	nightModeSwitcher.classList.add('night');
 	document.body.classList.add('night');
 	document.body.style.transitionDuration = "0.1s";
+	console.log('Yeah, dark theme have enabled.');
+	localStorage.setItem('night-mode', 'on')
 }
 
 window.onfocus = function () {

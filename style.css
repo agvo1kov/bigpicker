@@ -17,7 +17,7 @@ body {
 }
 
 body.night {
-	transition: all 1s linear 0s;
+	transition: all 0.1s linear 0s;
 	background: black;
 }
 
@@ -183,7 +183,7 @@ body.night {
 
 .example-text {
 	order: 5;
-	
+
 	margin-top: 1vh;
 	font-size: 4vh;
 }
