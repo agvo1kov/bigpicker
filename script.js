@@ -907,8 +907,8 @@ hexInput.addEventListener('input', function () {
 });
 
 rgbInput.addEventListener('input', function () {
-	let rgbInputString = rgbInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/[^0-9. ]/g, '');
-	// console.log(rgbInputString);
+	let rgbInputString = rgbInput.value.replace(',', ' ').replace(/[^0-9. ]/g, '').replace(/ +/g, ' ').trim();
+	console.log(rgbInputString);
 	// rgbInput.value = rgbInputString;
 
 	const rgb = {
@@ -935,7 +935,7 @@ rgbInput.addEventListener('input', function () {
 });
 
 rgbPercentageInput.addEventListener('input', function () {
-	let rgbPercentageInputString = rgbPercentageInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/[^0-9. ]/g, '');
+	let rgbPercentageInputString = rgbPercentageInput.value.replace(',', ' ').replace(/[^0-9. ]/g, '').replace(/ +/g, ' ').trim();
 	// rgbPercentageInput.value = rgbPercentageInputString;
 
 	const rgbPercentage = {
@@ -962,7 +962,7 @@ rgbPercentageInput.addEventListener('input', function () {
 });
 
 hsvInput.addEventListener('input', function () {
-	const hsvInputString = hsvInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/ +/g, ' ');
+	const hsvInputString = hsvInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/ +/g, ' ').trim();
 	// console.log(hsvInputString);
 	// hsvInput.value = hsvInputString;
 
@@ -990,7 +990,7 @@ hsvInput.addEventListener('input', function () {
 });
 
 cmykInput.addEventListener('input', function () {
-	const cmykInputString = cmykInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/[^0-9., ]/g, '');
+	const cmykInputString = cmykInput.value.replace(',', ' ').replace(/[^0-9., ]/g, '').replace(/ +/g, ' ').trim();
 	// cmykInput.value = cmykInputString;
 
 	const cmyk = {
