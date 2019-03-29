@@ -1,7 +1,6 @@
 
 
 // Logical model describing
-
 const palette = {
 	currentColor: {
 		percent: {
@@ -624,7 +623,7 @@ const ui = {
 };
 
 function updateUI(from) {
-	rectColor.setAttribute('fill', 'rgba(' + Math.round(palette.currentColor.rgb.r) + ', ' 
+	rectColor.setAttribute('fill', 'rgba(' + Math.round(palette.currentColor.rgb.r) + ', '
 		+ Math.round(palette.currentColor.rgb.g) + ', '
 		+ Math.round(palette.currentColor.rgb.b) + ', '
 		+ palette.currentColor.alpha + ')');
@@ -635,7 +634,7 @@ function updateUI(from) {
 		v: 100
 	});
 
-	toneColor.setAttribute('fill', 'rgb(' 
+	toneColor.setAttribute('fill', 'rgb('
 		+ Math.round(toneRgb.r) + ', '
 		+ Math.round(toneRgb.g) + ', '
 		+ Math.round(toneRgb.b) + ')');
@@ -682,7 +681,7 @@ function updateUI(from) {
 	if (cmykInput !== from) { cmykInput.value = cmykInputString; }
 
 	exampleText.innerHTML = ui.exampleText;
-	exampleText.style.color = 'rgba(' + Math.round(palette.currentColor.rgb.r) + ', ' 
+	exampleText.style.color = 'rgba(' + Math.round(palette.currentColor.rgb.r) + ', '
 		+ Math.round(palette.currentColor.rgb.g) + ', '
 		+ Math.round(palette.currentColor.rgb.b) + ', '
 		+ palette.currentColor.alpha + ')';
@@ -908,7 +907,8 @@ hexInput.addEventListener('input', function () {
 });
 
 rgbInput.addEventListener('input', function () {
-	let rgbInputString = rgbInput.value.replace(/[^0-9., ]/g, '');
+	let rgbInputString = rgbInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/[^0-9. ]/g, '');
+	// console.log(rgbInputString);
 	// rgbInput.value = rgbInputString;
 
 	const rgb = {
@@ -917,13 +917,13 @@ rgbInput.addEventListener('input', function () {
 		b: palette.currentColor.rgb.b
 	};
 
-	const rgbInputStringParts = rgbInputString.split(',');
-	if (rgbInputStringParts.length >= 3) {
-		rgb.r = rgbInputStringParts[0] * 1;
-		rgb.g = rgbInputStringParts[1] * 1;
-		rgb.b = rgbInputStringParts[2] * 1;
-		if (rgbInputStringParts.length > 3) {
-			palette.setAlpha(rgbInputStringParts[3] * 100);
+	const splitString = rgbInputString.split(' ');
+	if (splitString.length >= 3) {
+		rgb.r = splitString[0] * 1;
+		rgb.g = splitString[1] * 1;
+		rgb.b = splitString[2] * 1;
+		if (splitString.length > 3) {
+			palette.setAlpha(splitString[3] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -935,7 +935,7 @@ rgbInput.addEventListener('input', function () {
 });
 
 rgbPercentageInput.addEventListener('input', function () {
-	let rgbPercentageInputString = rgbPercentageInput.value.replace(/[^0-9., ]/g, '');
+	let rgbPercentageInputString = rgbPercentageInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/[^0-9. ]/g, '');
 	// rgbPercentageInput.value = rgbPercentageInputString;
 
 	const rgbPercentage = {
@@ -944,13 +944,13 @@ rgbPercentageInput.addEventListener('input', function () {
 		b: palette.currentColor.rgbPercentage.b
 	};
 
-	const rgbPercentageInputStringParts = rgbPercentageInputString.split(',');
-	if (rgbPercentageInputStringParts.length >= 3) {
-		rgbPercentage.r = rgbPercentageInputStringParts[0] * 100;
-		rgbPercentage.g = rgbPercentageInputStringParts[1] * 100;
-		rgbPercentage.b = rgbPercentageInputStringParts[2] * 100;
-		if (rgbPercentageInputStringParts.length > 3) {
-			palette.setAlpha(rgbPercentageInputStringParts[3] * 100);
+	const splitString = rgbPercentageInputString.split(' ');
+	if (splitString.length >= 3) {
+		rgbPercentage.r = splitString[0] * 100;
+		rgbPercentage.g = splitString[1] * 100;
+		rgbPercentage.b = splitString[2] * 100;
+		if (splitString.length > 3) {
+			palette.setAlpha(splitString[3] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -962,7 +962,8 @@ rgbPercentageInput.addEventListener('input', function () {
 });
 
 hsvInput.addEventListener('input', function () {
-	const hsvInputString = hsvInput.value.replace(/[^0-9., ]/g, '');
+	const hsvInputString = hsvInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/ +/g, ' ');
+	// console.log(hsvInputString);
 	// hsvInput.value = hsvInputString;
 
 	const hsv = {
@@ -971,13 +972,13 @@ hsvInput.addEventListener('input', function () {
 		v: palette.currentColor.hsv.v
 	};
 
-	const hsvInputStringParts = hsvInputString.split(',');
-	if (hsvInputStringParts.length >= 3) {
-		hsv.h = hsvInputStringParts[0] * 1;
-		hsv.s = hsvInputStringParts[1] * 1;
-		hsv.v = hsvInputStringParts[2] * 1;
-		if (hsvInputStringParts.length > 3) {
-			palette.setAlpha(hsvInputStringParts[3] * 100);
+	const splitString = hsvInputString.split(' ');
+	if (splitString.length >= 3) {
+		hsv.h = splitString[0] * 1;
+		hsv.s = splitString[1] * 1;
+		hsv.v = splitString[2] * 1;
+		if (splitString.length > 3) {
+			palette.setAlpha(splitString[3] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -989,7 +990,7 @@ hsvInput.addEventListener('input', function () {
 });
 
 cmykInput.addEventListener('input', function () {
-	const cmykInputString = cmykInput.value.replace(/[^0-9., ]/g, '');
+	const cmykInputString = cmykInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/[^0-9., ]/g, '');
 	// cmykInput.value = cmykInputString;
 
 	const cmyk = {
@@ -999,14 +1000,14 @@ cmykInput.addEventListener('input', function () {
 		k: palette.currentColor.hsv.k
 	};
 
-	const cmykInputStringParts = cmykInputString.split(',');
-	if (cmykInputStringParts.length >= 4) {
-		cmyk.c = cmykInputStringParts[0] * 1;
-		cmyk.m = cmykInputStringParts[1] * 1;
-		cmyk.y = cmykInputStringParts[2] * 1;
-		cmyk.k = cmykInputStringParts[3] * 1;
-		if (cmykInputStringParts.length > 4) {
-			palette.setAlpha(cmykInputStringParts[4] * 100);
+	const splitString = cmykInputString.split(' ');
+	if (splitString.length >= 4) {
+		cmyk.c = splitString[0] * 1;
+		cmyk.m = splitString[1] * 1;
+		cmyk.y = splitString[2] * 1;
+		cmyk.k = splitString[3] * 1;
+		if (splitString.length > 4) {
+			palette.setAlpha(splitString[4] * 100);
 		} else {
 			palette.setAlpha(100);
 		}
@@ -1177,7 +1178,7 @@ function getDefaultTheme() {
 	console.log('Bright theme enabled.');
 
 	return '';
-};
+}
 
 if ((localStorage.getItem('night-mode') === 'on')
 	|| getDefaultTheme() === 'dark') {
