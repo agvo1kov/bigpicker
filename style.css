@@ -233,6 +233,120 @@ a:active {
 	display: none;
 }
 
+.night-switcher {
+	position: relative;
+
+	margin: 1vw auto 0;
+
+	/*width: 5vw;*/
+	/*background: #f5f5f5;*/
+
+	cursor: pointer;
+}
+
+.night-switcher:hover > .box {
+	border-color: #919191;
+}
+.night-switcher:hover .svg-sun {
+	fill: #919191;
+}
+
+/*.night .night-switcher:hover > .box {
+	border-color: #3d3d3d;
+}
+.night .night-switcher:hover .moon {
+	background: #3d3d3d;
+}*/
+
+.night-switcher > .box {
+	transition: all 0.1s linear 0s;
+	position: relative;
+	overflow: hidden;
+
+	margin: 10px auto 0;
+
+	border-style: solid;
+	border-color: #616161;
+	border-width: 2px;
+
+	width: 50px;
+	height: 25px;
+	border-radius: 25px;
+	background: #fff;
+}
+
+.svg-sun {
+	transition: all 0.1s linear 0s;
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	height: 21px;
+	/*display: none;*/
+	fill: #616161;
+	/*fill: black;*/
+	/*transform: translate(4vw, 0.3vw) scale(0.16);*/
+}
+
+.night .svg-sun {
+	transition: all 0.1s linear 0s;
+	right: 26px;
+	opacity: 0;
+	fill: #fff;
+	transform: rotate(-90deg) scale(0.6);
+}
+
+.moon {
+	transition: all 0.1s linear 0s;
+	position: absolute;
+	top: 6px;
+	right: 7px;
+	width: 13px;
+	height: 13px;
+	border-radius: 13px;
+	background: #fff;
+	transform: scale(0.5);
+	opacity: 0;
+}
+
+.night .moon {
+	transition: all 0.1s linear 0s;
+	opacity: 1;
+	right: 31px;
+	transform: scale(1.2);
+	background: #616161;
+}
+
+.dark-side-of-moon {
+	transition: all 0.1s linear 0s;
+	position: absolute;
+	top: 4px;
+	left: 0;
+	width: 13px;
+	height: 13px;
+	border-radius: 100%;
+	background: white;
+	transform: scale(1.2);
+}
+.night .dark-side-of-moon {
+	background: black;
+}
+
+.night-switcher.night .box {
+	transition: all 0.1s linear 0s;
+	background: #000;
+	border-color: #616161;
+}
+
+.github {
+	display: inline-block;
+	margin-top: 4px;
+}
+
+/*.night-switcher.night > .box > .dark-side-of-moon {*/
+	/*transition: all 1s linear 0s;*/
+	/*left: 1px;*/
+	/*background: #000;*/
+/*}*/
 
 /* Only mobile elements */
 @media (orientation: portrait) {
@@ -383,119 +497,8 @@ a:active {
 	.example-text {
 		display: none;
 	}
+
+	.github {
+		display: none;
+	}
 }
-
-.night-switcher {
-	position: relative;
-
-	margin: 1vw auto 0;
-
-	/*width: 5vw;*/
-	/*background: #f5f5f5;*/
-
-	cursor: pointer;
-}
-
-.night-switcher:hover > .box {
-	border-color: #919191;
-}
-.night-switcher:hover .svg-sun {
-	fill: #919191;
-}
-
-/*.night .night-switcher:hover > .box {
-	border-color: #3d3d3d;
-}
-.night .night-switcher:hover .moon {
-	background: #3d3d3d;
-}*/
-
-.night-switcher > .box {
-	transition: all 0.1s linear 0s;
-	position: relative;
-	overflow: hidden;
-
-	margin: 10px auto 0;
-
-	border-style: solid;
-	border-color: #616161;
-	border-width: 2px;
-
-	width: 50px;
-	height: 25px;
-	border-radius: 25px;
-	background: #fff;
-}
-
-.svg-sun {
-	transition: all 0.1s linear 0s;
-	position: absolute;
-	top: 3px;
-	right: 3px;
-	height: 21px;
-	/*display: none;*/
-	fill: #616161;
-	/*fill: black;*/
-	/*transform: translate(4vw, 0.3vw) scale(0.16);*/
-}
-
-.night .svg-sun {
-	transition: all 0.1s linear 0s;
-	right: 26px;
-	opacity: 0;
-	fill: #fff;
-	transform: rotate(-90deg) scale(0.6);
-}
-
-.moon {
-	transition: all 0.1s linear 0s;
-	position: absolute;
-	top: 6px;
-	right: 7px;
-	width: 13px;
-	height: 13px;
-	border-radius: 13px;
-	background: #fff;
-	transform: scale(0.5);
-	opacity: 0;
-}
-
-.night .moon {
-	transition: all 0.1s linear 0s;
-	opacity: 1;
-	right: 31px;
-	transform: scale(1.2);
-	background: #616161;
-}
-
-.dark-side-of-moon {
-	transition: all 0.1s linear 0s;
-	position: absolute;
-	top: 4px;
-	left: 0;
-	width: 13px;
-	height: 13px;
-	border-radius: 100%;
-	background: white;
-	transform: scale(1.2);
-}
-.night .dark-side-of-moon {
-	background: black;
-}
-
-.night-switcher.night .box {
-	transition: all 0.1s linear 0s;
-	background: #000;
-	border-color: #616161;
-}
-
-.github {
-	display: inline-block;
-	margin-top: 4px;
-}
-
-/*.night-switcher.night > .box > .dark-side-of-moon {*/
-	/*transition: all 1s linear 0s;*/
-	/*left: 1px;*/
-	/*background: #000;*/
-/*}*/
