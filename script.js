@@ -1151,20 +1151,32 @@ mobileColorModelSelect.addEventListener('input', function() {
 	}
 });
 
+turnNightMode = () => {
+	document.body.style.transitionDuration = "0s";
+	nightModeSwitcher.classList.add('night');
+	document.body.classList.add('night');
+	document.body.style.transitionDuration = "0.1s";
+};
+
+turnLightMode = () => {
+	document.body.style.transitionDuration = "0s";
+	nightModeSwitcher.classList.remove('night');
+	document.body.classList.remove('night');
+	document.body.style.transitionDuration = "0.1s";
+};
+
 const nightModeSwitcher = document.getElementById('night-mode-switcher');
 function nightModeSwitch() {
 	if (nightModeSwitcher.classList.contains('night')) {
-		nightModeSwitcher.classList.remove('night');
-		document.body.classList.remove('night');
+		turnLightMode();
 		localStorage.setItem('night-mode', 'off');
 	} else {
-		nightModeSwitcher.classList.add('night');
-		document.body.classList.add('night');
+		turnNightMode();
 		localStorage.setItem('night-mode', 'on');
 	}
 }
 
-function getDefaultTheme() {
+getDefaultTheme = () => {
 	const userTheme = localStorage.getItem('journalbook_theme');
 
 	if (userTheme !== null) {
@@ -1178,28 +1190,25 @@ function getDefaultTheme() {
 	console.log('Bright theme enabled.');
 
 	return '';
-}
+};
 
-if ((localStorage.getItem('night-mode') === 'on')
-	|| getDefaultTheme() === 'dark') {
-	document.body.style.transitionDuration = "0s";
-	nightModeSwitcher.classList.add('night');
-	document.body.classList.add('night');
-	document.body.style.transitionDuration = "0.1s";
-	console.log('Yeah, dark theme have enabled.');
-	localStorage.setItem('night-mode', 'on')
-}
+autoThemeApply = () => {
+	const userDesktopTheme = getDefaultTheme();
+	if (userDesktopTheme !== localStorage.getItem('user-desktop-theme')) {
+		localStorage.setItem('user-desktop-theme', userDesktopTheme);
 
-window.onfocus = function () {
-	if (localStorage.getItem('night-mode') === 'on') {
-		document.body.style.transitionDuration = "0s";
-		nightModeSwitcher.classList.add('night');
-		document.body.classList.add('night');
-		document.body.style.transitionDuration = "0.1s";
-	} else {
-		document.body.style.transitionDuration = "0s";
-		nightModeSwitcher.classList.remove('night');
-		document.body.classList.remove('night');
-		document.body.style.transitionDuration = "0.1s";
+		if (userDesktopTheme === 'dark') {
+			localStorage.setItem('night-mode', 'on');
+			turnNightMode();
+		} else {
+			localStorage.setItem('night-mode', 'off');
+			turnLightMode();
+		}
+	} else if (localStorage.getItem('night-mode') === 'on') {
+		localStorage.setItem('night-mode', 'on');
+		turnNightMode();
 	}
 };
+
+autoThemeApply();
+window.onfocus = autoThemeApply;
