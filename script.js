@@ -1039,7 +1039,7 @@ function toSelectInput(input) {
 			break;
 
 		case rgbPercentageInput:
-			mobileColorModelSelect.value = 'RGB Percentage';
+			mobileColorModelSelect.value = 'RGB %';
 			mobileColorModelSelect.classList.add('percentage');
 			break;
 
@@ -1134,7 +1134,7 @@ mobileColorModelSelect.addEventListener('input', function() {
 			toSelectInput(rgbInput);
 			break;
 
-		case 'RGB Percentage':
+		case 'RGB %':
 			toSelectInput(rgbPercentageInput);
 			break;
 
