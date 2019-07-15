@@ -899,7 +899,6 @@ function actionsEnd() {
 
 hexInput.addEventListener('input', function () {
 	const hexInputString = hexInput.value.replace(/[^0-9a-fA-F]/g, '').substr(0, 6);
-	// hexInput.value = hexInputString;
 	palette.setColorFromHex(hexInputString);
 	updateUI(hexInput);
 
@@ -907,9 +906,7 @@ hexInput.addEventListener('input', function () {
 });
 
 rgbInput.addEventListener('input', function () {
-	let rgbInputString = rgbInput.value.replace(',', ' ').replace(/[^0-9. ]/g, '').replace(/ +/g, ' ').trim();
-	console.log(rgbInputString);
-	// rgbInput.value = rgbInputString;
+	let rgbInputString = rgbInput.value.replace(/,/g, ' ').replace(/[^0-9. ]/g, '').replace(/ +/g, ' ').trim();
 
 	const rgb = {
 		r: palette.currentColor.rgb.r,
@@ -935,8 +932,7 @@ rgbInput.addEventListener('input', function () {
 });
 
 rgbPercentageInput.addEventListener('input', function () {
-	let rgbPercentageInputString = rgbPercentageInput.value.replace(',', ' ').replace(/[^0-9. ]/g, '').replace(/ +/g, ' ').trim();
-	// rgbPercentageInput.value = rgbPercentageInputString;
+	let rgbPercentageInputString = rgbPercentageInput.value.replace(/,/g, ' ').replace(/[^0-9. ]/g, '').replace(/ +/g, ' ').trim();
 
 	const rgbPercentage = {
 		r: palette.currentColor.rgbPercentage.r,
@@ -962,9 +958,7 @@ rgbPercentageInput.addEventListener('input', function () {
 });
 
 hsvInput.addEventListener('input', function () {
-	const hsvInputString = hsvInput.value.replace(',', ' ').replace(/ +/g, ' ').replace(/ +/g, ' ').trim();
-	// console.log(hsvInputString);
-	// hsvInput.value = hsvInputString;
+	const hsvInputString = hsvInput.value.replace(/,/g, ' ').replace(/ +/g, ' ').replace(/ +/g, ' ').trim();
 
 	const hsv = {
 		h: palette.currentColor.hsv.h,
@@ -990,8 +984,7 @@ hsvInput.addEventListener('input', function () {
 });
 
 cmykInput.addEventListener('input', function () {
-	const cmykInputString = cmykInput.value.replace(',', ' ').replace(/[^0-9., ]/g, '').replace(/ +/g, ' ').trim();
-	// cmykInput.value = cmykInputString;
+	const cmykInputString = cmykInput.value.replace(/,/g, ' ').replace(/[^0-9., ]/g, '').replace(/ +/g, ' ').trim();
 
 	const cmyk = {
 		c: palette.currentColor.hsv.c,
